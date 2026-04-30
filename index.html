@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placks | Project Status: Alpha</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020617;
+            --surface: #0f172a;
+            --accent: #3b82f6;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.5);
+            --border: rgba(255, 255, 255, 0.1);
+            --warning: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus+Jakarta+Sans', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Badge WIP */
+        .badge-wip {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: rgba(245, 158, 11, 0.1); color: var(--warning);
+            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;
+            font-weight: 600; border: 1px solid rgba(245, 158, 11, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+        .nav-logo img { height: 28px; border-radius: 4px; }
+
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 100px 10% 50px; background: radial-gradient(circle at top, #1e293b 0%, #020617 80%);
+        }
+        
+        .hero img.large-logo { height: 100px; margin-bottom: 1.5rem; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)); }
+
+        .typewriter-container { height: 4rem; display: flex; align-items: center; justify-content: center; }
+        #typewriter {
+            font-size: clamp(1.2rem, 4vw, 3rem); font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .cursor { display: inline-block; width: 3px; background-color: var(--accent); margin-left: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .section { padding: 80px 10%; }
+        
+        /* Video Styling */
+        .video-container {
+            width: 100%; max-width: 900px; margin: 2rem auto;
+            aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden;
+            border: 1px solid var(--border); background: #000;
+        }
+        .video-container iframe { width: 100%; height: 100%; border: none; opacity: 0.8; }
+
+        /* Roadmap Grid */
+        .roadmap {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem; margin-top: 3rem;
+        }
+        .step {
+            padding: 2rem; border-radius: 24px; background: var(--surface);
+            border: 1px solid var(--border); position: relative;
+        }
+        .step.active { border-color: var(--accent); box-shadow: 0 0 30px rgba(59, 130, 246, 0.1); }
+        .step .number { font-weight: 800; color: var(--accent); font-size: 2rem; opacity: 0.3; margin-bottom: 1rem; display: block; }
+        .step h3 { margin-bottom: 0.5rem; }
+        .step p { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* Status Cards */
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .status-card {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 1.5rem; border-radius: 16px; text-decoration: none; color: white;
+            transition: 0.3s;
+        }
+        .status-card:hover { border-color: var(--accent); }
+        .status-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+        .status-tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; background: #1e293b; border: 1px solid var(--border); }
+
+        .btn { padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-secondary { background: var(--surface); color: white; border: 1px solid var(--border); }
+
+        footer { padding: 4rem 10% 2rem; text-align: center; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-dim); }
+
+        @media (max-width: 768px) { .hero { padding-top: 150px; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="https://github.com/julienheinen/Placks/raw/main/Placks/Assets.xcassets/AppIcon.appiconset/Icon-180.png?raw=true" alt="Placks">
+            <span>PLACKS</span>
+        </div>
+        <div class="badge-wip" style="margin-bottom: 0; font-size: 0.6rem;">
+            <i data-lucide="construction" style="width:12px"></i> ALPHA PHASE
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="badge-wip reveal">
+            <i data-lucide="database"></i> COLLECTE DE DONNÉES EN COURS
+        </div>
+        <img src="https://github.com/julienheinen/Placks/raw/main/Placks/Assets.xcassets/AppIcon.appiconset/Icon-180.png?raw=true" alt="Logo" class="large-logo reveal">
+        <div class="typewriter-container reveal">
+            <span id="typewriter"></span><span class="cursor">|</span>
+        </div>
+        <p class="reveal" style="color: var(--text-dim); margin-top: 1rem; max-width: 700px; font-size: 1.1rem;">
+            Nous construisons une intelligence capable de comprendre la LSF dans le "bruit" du quotidien. 
+            Le projet est actuellement en phase de <strong>recherche fondamentale</strong>.
+        </p>
+        <div class="reveal" style="margin-top: 2.5rem; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+            <a href="mailto:placks@hyter.online" class="btn btn-primary"><i data-lucide="video"></i> Contribuer avec mes vidéos</a>
+            <a href="#repos" class="btn btn-secondary">Voir l'avancement technique</a>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,255,255,0.02)">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+            <div class="badge-wip"><i data-lucide="cpu"></i> CORE TECHNOLOGY</div>
+            <h2>La précision avant l'esthétique.</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 1rem auto;">
+                Pour l'instant, nous ne nous concentrons pas sur le design de l'application. 
+                Notre priorité absolue est la robustesse de l'IA via <strong>MediaPipe Holistic</strong>.
+            </p>
+        </div>
+
+        <div class="video-container reveal">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ha2n8wnsMS4?si=cN3Tze0oGKJPcUgY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    </section>
+
+    <section class="section">
+        <h2>Feuille de route (Roadmap)</h2>
+        <div class="roadmap">
+            <div class="step active reveal">
+                <span class="number">01</span>
+                <h3>Data & Géométrie</h3>
+                <p><strong>En cours.</strong> Extraction des points clés (mains, visage, pose). Collecte massive de vidéos en conditions réelles.</p>
+            </div>
+            <div class="step reveal">
+                <span class="number">02</span>
+                <h3>IA & Contextualisation</h3>
+                <p>Entraînement du modèle pour séparer les signes des mouvements parasites (se gratter, hésiter).</p>
+            </div>
+            
+            <div class="step reveal">
+                <span class="number">03</span>
+                <h3>Interface & UX</h3>
+                <p>Développement des applications iOS et Android finales avec une expérience utilisateur fluide.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="repos" class="section">
+        <h2>État des dépôts GitHub</h2>
+        <div class="status-grid">
+            <a href="https://github.com/Placks-project/Placks-AI" class="status-card reveal">
+                <div class="status-header">
+                    <i data-lucide="binary" style="color: var(--accent)"></i>
+                    <span class="status-tag" style="color: var(--accent)">PRIORITÉ 1</span>
+                </div>
+                <strong>Placks-AI</strong>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Cerveau du projet. Phase de test des algorithmes de filtrage.</p>
+            </a>
+            <a href="https://github.com/Placks-project/Placks-IOS" class="status-card reveal">
+                <div class="status-header">
+                    <i data-lucide="apple"></i>
+                    <span class="status-tag">PROTOTYPE ALPHA</span>
+                </div>
+                <strong>Placks-IOS</strong>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Interface de test "brute" pour valider la capture vidéo. Design non finalisé.</p>
+            </a>
+            <a href="https://github.com/Placks-project/Placks-Android" class="status-card reveal">
+                <div class="status-header">
+                    <i data-lucide="play"></i>
+                    <span class="status-tag">CONCEPT</span>
+                </div>
+                <strong>Placks-Android</strong>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Architecture de base en attente de l'intégration du modèle final.</p>
+            </a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Le projet Placks est ouvert à toute aide technique ou don de données.</p>
+        <p style="margin-top: 10px;">Contact recherche : <strong>placks@hyter.online</strong></p>
+        <p style="margin-top: 30px; opacity: 0.5;">&copy; 2026 Placks Project — Connecting Hands, Breaking Barriers.</p>
+    </footer>
+
+        // là je mets le script à la fin pour que tout soit chargé avant de lancer les animations et l'observer d'intersection
+    <script>
+        lucide.createIcons();
+
+        const phrases = [
+            "Connecting Hands, Breaking Barriers",
+            "Connecter les mains, briser les barrières",
+            "Hände verbinden, Barrieren brechen",
+            "连接双手，打破障碍",
+            "Conectando manos, rompiendo barreras",
+            "ربط الأيدي، كسر الحواجز"
+        ];
+        
+        let i = 0; let j = 0; let currentPhrase = ""; let isDeleting = false;
+
+        function type() {
+            const target = document.getElementById("typewriter");
+            const fullText = phrases[i];
+            currentPhrase = isDeleting ? fullText.substring(0, j - 1) : fullText.substring(0, j + 1);
+            j = isDeleting ? j - 1 : j + 1;
+            target.textContent = currentPhrase;
+
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && j === fullText.length) { speed = 2000; isDeleting = true; }
+            else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % phrases.length; speed = 500; }
+            setTimeout(type, speed);
+        }
+        document.addEventListener("DOMContentLoaded", type);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
