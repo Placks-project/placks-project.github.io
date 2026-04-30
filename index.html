@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placks | Project Status: Alpha</title>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -124,7 +125,7 @@
             <span id="typewriter"></span><span class="cursor">|</span>
         </div>
         <p class="reveal" style="color: var(--text-dim); margin-top: 1rem; max-width: 700px; font-size: 1.1rem;">
-            Nous construisons une intelligence capable de comprendre la LSF dans le "bruit" du quotidien. 
+            Nous construisons une intelligence capable de comprendre <strong>la grande majorité des Langues des Signes mondiales (ASL, LSF, DGS, etc.)</strong> dans le "bruit" du quotidien. 
             Le projet est actuellement en phase de <strong>recherche fondamentale</strong>.
         </p>
         <div class="reveal" style="margin-top: 2.5rem; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
@@ -148,22 +149,138 @@
     </div>
     </section>
 
-    <section class="section">
+    <section id="why" class="section" style="background: rgba(255,255,255,0.02)">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+            <div class="badge-wip"><i data-lucide="bar-chart-2"></i> LE CONSTAT</div>
+            <h2>Pourquoi Placks ? Les barrières par les chiffres.</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 1rem auto;">
+                Ce projet pallie une fracture technologique, éducative et sociale majeure. Voici les faits mondiaux qui prouvent qu'il ne s'agit pas d'un "manque" des langues des signes, mais d'une erreur d'infrastructure et d'accès de nos sociétés.
+            </p>
+        </div>
+
+        <div class="status-grid" style="margin-bottom: 5rem;">
+            <div class="status-card reveal">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;"><i data-lucide="globe" style="height:18px; display:inline; vertical-align:text-bottom; margin-right:5px;"></i> Utilisateurs Mondiaux</h3>
+                <canvas id="locuteursChart" height="200"></canvas>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">Des dizaines de millions de personnes (Indo-Pakistani, Chinoise, ASL...) dépendent des langues des signes chaque jour. Leur inclusion numérique est quasi nulle par rapport aux langues orales.</p>
+            </div>
+            
+            <div class="status-card reveal">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;"><i data-lucide="users" style="height:18px; display:inline; vertical-align:text-bottom; margin-right:5px;"></i> Le Déficit d'Interprètes</h3>
+                <canvas id="interpretesChart" height="200"></canvas>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">Aux États-Unis, on compte environ 500 000 locuteurs natifs d'ASL pour un vivier de seulement 10 000 interprètes certifiés, créant un manque abyssal lors d'urgences de santé par exemple.</p>
+            </div>
+
+            <div class="status-card reveal">
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;"><i data-lucide="briefcase" style="height:18px; display:inline; vertical-align:text-bottom; margin-right:5px;"></i> L'impact sur l'emploi</h3>
+                <canvas id="emploiChart" height="200"></canvas>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">L'audisme à l'embauche limite drastiquement les opportunités. Un taux d'emploi chiffré à 54% pour les personnes sourdes, contre 70% pour les personnes entendantes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="impacts" class="section">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+            <div class="badge-wip"><i data-lucide="alert-triangle"></i> LA RÉALITÉ DU TERRAIN</div>
+            <h2>Conséquences directes de la pénurie d'interprètes.</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 1rem auto;">
+                Avec un ratio de 50 personnes sourdes pour 1 interprète (aux US/Canada, contre 1/20 pour l'espagnol), les conséquences sont dramatiques. Par exemple en 2017, le sud-ouest de la Louisiane ne comptait que 3 interprètes pour 800 personnes sourdes.
+            </p>
+        </div>
+
+        <div class="roadmap">
+            <div class="step reveal">
+                <i data-lucide="heart-pulse" style="color: var(--warning); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>Santé & Urgences</h3>
+                <p><strong>48,2 %</strong> des plaintes concernent l'absence totale d'interprète, et <strong>28,7 %</strong> le recours à la famille. Aux urgences, un patient souffrant de douleur thoracique sans interprète risque des erreurs de diagnostic fatales.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="graduation-cap" style="color: var(--warning); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>Éducation en Péril</h3>
+                <p><strong>18 %</strong> des interprètes universitaires sont en burnout. Les étudiants font face à des cours annulés ou mal traduits (ex: termes médicaux introuvables), menant trop souvent à l'abandon prématuré.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="scale" style="color: var(--warning); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>Justice & Emploi</h3>
+                <p>Dans les tribunaux, le manque d'interprètes viole les droits des accusés sourds. À l'embauche, des entretiens sont refusés catégoriquement pour éviter de devoir rémunérer un professionnel.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,255,255,0.02)">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+            <div class="badge-wip" style="background: rgba(59, 130, 246, 0.1); color: var(--accent); border-color: rgba(59, 130, 246, 0.3);"><i data-lucide="target"></i> LA VISION PLACKS</div>
+            <h2>Notre objectif</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 1rem auto;">
+                Si les applications mobiles sont notre première étape, <strong>la finalité du projet</strong> est d'équiper massivement les infrastructures publiques et privées pour rendre l'accessibilité invisible, automatique et universelle.
+            </p>
+        </div>
+        <div class="status-grid">
+            <div class="status-card reveal" style="border-color: rgba(59, 130, 246, 0.5);">
+                <i data-lucide="building-2" style="height: 32px; width: 32px; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 0.5rem;">Secteur Public & Transports</h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">Déploiement de caméras intelligentes et de boîtiers IA dans les <strong>gares, aéroports, préfectures et hôpitaux</strong>. Une personne sourde pourra s'adresser naturellement à l'écran du guichet d'urgence et être comprise instantanément.</p>
+            </div>
+            <div class="status-card reveal" style="border-color: rgba(59, 130, 246, 0.5);">
+                <i data-lucide="store" style="height: 32px; width: 32px; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 0.5rem;">Secteur Privé & Entreprises</h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">Équiper les <strong>salles de réunion et les open-spaces</strong> avec du hardware dédié. Cela détruira la barrière psychologique et financière (répugnance à payer un interprète) lors de l'embauche d'employés sourds.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="models" class="section">
+        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
+            <div class="badge-wip"><i data-lucide="layers"></i> AI ARCHITECTURE</div>
+            <h2>Une gamme de 4 modèles adaptée à chaque usage.</h2>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 1rem auto;">
+                Pour résoudre ces barrières tout en respectant les capacités matérielles de chacun, 
+                Placks développe plusieurs poids de modèles. Du traitement mobile instantané à la pure investigation scientifique.
+            </p>
+        </div>
+
+        <div class="roadmap">
+            <div class="step reveal">
+                <i data-lucide="smartphone" style="color: var(--accent); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>1. Modèle Léger</h3>
+                <p>Optimisé pour le "Edge Computing". Fonctionne directement en local sur un smartphone lambda. Extrêmement rapide, pensé pour la vie de tous les jours.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="zap" style="color: var(--accent); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>2. Modèle Moyen</h3>
+                <p>Le compromis idéal de la gamme. Plus précis pour distinguer les accents régionaux subtils, tout en conservant une bonne vitesse pour des applications avancées.</p>
+            </div>
+            <div class="step reveal">
+                <i data-lucide="server" style="color: var(--warning); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>3. Modèle Lourd</h3>
+                <p>Destiné aux serveurs et ordinateurs puissants. Idéal dans des environnements exigeants (démarches hospitalières, secteurs administratifs) demandant peu d'erreurs (hallucinations IA minimes).</p>
+            </div>
+            <div class="step reveal" style="border-color: var(--accent); box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);">
+                <i data-lucide="graduation-cap" style="color: var(--accent); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
+                <h3>4. Modèle Académique</h3>
+                <p>Le plus imposant et le <strong>plus lent</strong>, mais offrant la <strong>meilleure précision existante</strong>. Taillé pour la recherche, l'analyse linguistique fine et l'extraction de métriques cliniques.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(255,255,255,0.02)">
         <h2>Feuille de route (Roadmap)</h2>
         <div class="roadmap">
             <div class="step active reveal">
                 <span class="number">01</span>
+                <i data-lucide="scan-face" style="color: var(--accent); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
                 <h3>Data & Géométrie</h3>
                 <p><strong>En cours.</strong> Extraction des points clés (mains, visage, pose). Collecte massive de vidéos en conditions réelles.</p>
             </div>
             <div class="step reveal">
                 <span class="number">02</span>
+                <i data-lucide="brain-circuit" style="color: var(--text-dim); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
                 <h3>IA & Contextualisation</h3>
                 <p>Entraînement du modèle pour séparer les signes des mouvements parasites (se gratter, hésiter).</p>
             </div>
-            
             <div class="step reveal">
                 <span class="number">03</span>
+                <i data-lucide="layout-template" style="color: var(--text-dim); margin-bottom: 1rem; height: 32px; width: 32px;"></i>
                 <h3>Interface & UX</h3>
                 <p>Développement des applications iOS et Android finales avec une expérience utilisateur fluide.</p>
             </div>
@@ -197,6 +314,24 @@
                 <strong>Placks-Android</strong>
                 <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 0.5rem;">Architecture de base en attente de l'intégration du modèle final.</p>
             </a>
+        </div>
+    </section>
+
+    <section id="sources" class="section">
+        <div class="reveal" style="text-align: center; margin-bottom: 2rem;">
+            <div class="badge-wip"><i data-lucide="book-open"></i> SOURCES & RÉFÉRENCES</div>
+            <h2>Bases de données et travaux de recherche</h2>
+        </div>
+        <div class="reveal" style="max-width: 800px; margin: 0 auto; color: var(--text-dim); font-size: 0.9rem; background: var(--surface); padding: 2rem; border-radius: 16px; border: 1px solid var(--border);">
+            <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://en.wikipedia.org/wiki/List_of_sign_languages_by_number_of_native_signers" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">List of sign languages by number of native signers</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://www.gallaudet.edu/documents/Research-Support-and-International-Affairs/ASL_Users.pdf" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Gallaudet University: ASL Users Estimates (PDF)</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://pubmed.ncbi.nlm.nih.gov/36423340/" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">PubMed: Health Outcomes in Deaf Signing Populations</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://deafservicesunlimited.com/critical-care-critical-gap-the-asl-interpreter-shortage-in-medicine/" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Deaf Services Unlimited: The ASL Interpreter Shortage in Medicine</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://www.bu.edu/articles/2025/making-the-world-more-accessible-for-sign-language-users/" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Boston University: Making the world more accessible for sign language users</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://viterbischool.usc.edu/news/2025/09/new-language-technologies-for-american-sign-language/" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">USC Viterbi: New Language Technologies for American Sign Language</a></li>
+                <li><i data-lucide="link-2" style="height: 16px; display: inline; vertical-align: text-bottom; margin-right: 5px; color: var(--accent);"></i> <a href="https://gallaudet.edu/research/artificial-intelligence-accessibility-and-sign-language-center/" target="_blank" style="color: var(--text); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Gallaudet University: AI, Accessibility and Sign Language Center</a></li>
+            </ul>
         </div>
     </section>
 
@@ -239,6 +374,100 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Configuration Globale Chart.js Style Dark/Neon
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+        const langData = [
+            { pays: 'Inde & Pakistan', acro: 'IPSL', val: 6.3 },
+            { pays: 'Chine', acro: 'CSL', val: 4.0 },
+            { pays: 'Indonésie', acro: 'BISINDO', val: 0.81 },
+            { pays: 'Russie', acro: 'RSL', val: 0.715 },
+            { pays: 'Brésil', acro: 'LBS', val: 0.6 },
+            { pays: 'Éthiopie', acro: 'EthSL', val: 0.56 },
+            { pays: 'Espagne', acro: 'LSE', val: 0.523 },
+            { pays: 'Égypte', acro: 'ESL', val: 0.474 },
+            { pays: 'États-Unis', acro: 'ASL', val: 0.46 },
+            { pays: 'Iran', acro: 'ZSF', val: 0.325 },
+            { pays: 'Turquie', acro: 'TİD', val: 0.3 },
+            { pays: 'Algérie', acro: 'LSA', val: 0.24 },
+            { pays: 'Mexique', acro: 'LSM', val: 0.13 },
+            { pays: 'Japon', acro: 'JSL', val: 0.126 },
+            { pays: 'France', acro: 'LSF', val: 0.1 },
+            { pays: 'Allemagne', acro: 'DGS', val: 0.08 },
+            { pays: 'Royaume-Uni', acro: 'BSL', val: 0.08 }
+        ];
+
+        new Chart(document.getElementById('locuteursChart'), {
+            type: 'bar',
+            data: {
+                labels: langData.map(d => d.pays),
+                datasets: [{
+                    label: 'Millions de pratiquants',
+                    data: langData.map(d => d.val),
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    borderColor: '#3b82f6',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: (ctx) => `${langData[ctx[0].dataIndex].pays} (${langData[ctx[0].dataIndex].acro})`,
+                            label: (ctx) => `${ctx.raw} Millions de pratiquants`
+                        }
+                    }
+                },
+                scales: { 
+                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, 
+                    x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } } 
+                }
+            }
+        });
+
+        new Chart(document.getElementById('interpretesChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Utilisateurs ASL (500k)', 'Interprètes (10k)'],
+                datasets: [{
+                    data: [500000, 10000],
+                    backgroundColor: ['rgba(59, 130, 246, 0.2)', '#f59e0b'],
+                    borderColor: ['#0f172a', '#0f172a'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '70%',
+                plugins: { legend: { position: 'bottom', labels: { color: '#f8fafc' } } }
+            }
+        });
+
+        new Chart(document.getElementById('emploiChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Sourds (54%)', 'Entendants (70%)'],
+                datasets: [{
+                    label: 'Taux',
+                    data: [54, 70],
+                    backgroundColor: ['rgba(245, 158, 11, 0.8)', 'rgba(59, 130, 246, 0.8)'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
     </script>
 </body>
 </html>
